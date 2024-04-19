@@ -13,4 +13,12 @@ Tentei comentar mas nada muito exagerado, comentarios pontuais que talvez sejam 
 
 Estilização de paginas e layout não é muito a minha praia, nao tenho problemas em desenvolver um layout novo do zero, se estiver no figma por acaso, mas eu nao tenho senso de moda algum ou de combinação de elementos e cores, brincadeiras a parte.
 
+# O que eu faria de diferente?
+
+Não de diferente mas eu gostaria de terminar o item 6 a implementação dele no front end com os relacionamentos entre os indices das tabelas (produtosId da tabela de ordem e produtodid na tabela de produtos).
+Faria na parte do ERP que é o item 7 o relacionamento onde chegaria até a ultima camada ode voce relaciona o valor unitário com a quantidade que é um valor ja trabalho na tabela de ordem de compra. Acho que em um bate-papo eu conseguiria me expressar e explicar melhor.
+
+
+
+
 No mais eu espero um retorno positivo e qualquer duvidas sintam-se livres para perguntar.
