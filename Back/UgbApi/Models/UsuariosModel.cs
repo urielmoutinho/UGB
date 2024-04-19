@@ -7,7 +7,7 @@ namespace UgbApi.Models
     [Table("Usuarios")]
     public class UsuarioModel
     {
-        [Key]
+        [Key] // Define a propriedade como chave primária
         public int UsuarioId { get; set; }
 
         public int Matricula { get; set; }

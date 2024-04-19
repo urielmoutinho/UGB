@@ -1,0 +1,15 @@
+﻿@model UgbFront.Models.ServicoModel
+
+<h1>Excluir Serviço</h1>
+
+<div>
+    <h4>ID: @Html.DisplayFor(model => model.ServicoId)</h4>
+    <h4>Nome: @Html.DisplayFor(model => model.Nome)</h4>
+    <h4>Descrição: @Html.DisplayFor(model => model.Descricao)</h4>
+    <h4>Prazo de Entrega: @Html.DisplayFor(model => model.PrazoEntrega)</h4>
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.ServicoId" method="post">
+    <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" /> 
+    <a asp-action="Index">Cancelar</a>
+</form>

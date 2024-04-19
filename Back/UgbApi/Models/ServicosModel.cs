@@ -7,13 +7,11 @@ namespace UgbApi.Models
     [Table("Servicos")]
     public class ServicoModel
     {
-        [Key]
+        [Key] // Define a propriedade como chave primária
         public int ServicoId { get; set; }
-
+        public int FornecedorId { get; set; } // Referência ao fornecedor associado
         public string Nome { get; set; }
-        public int FornecedorId { get; set; }
-        public FornecedorModel Fornecedor { get; set; }
         public string Descricao { get; set; }
-        public int PrazoEntrega { get; set; }
+        public DateTime PrazoEntrega { get; set; }
     }
 }

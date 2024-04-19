@@ -1,0 +1,24 @@
+﻿@model UgbFront.Models.PedidoInternoModel
+
+<h1>Excluir Pedido Interno</h1>
+
+<div>
+    <h4>ID do Pedido Interno: @Model.PedidoInternoId</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Quantidade:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Quantidade)</dd>
+        <dt class="col-sm-2">Data de Cadastro:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DataCadastro)</dd>
+        <dt class="col-sm-2">Observação:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Observacao)</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="PedidoInternoId" />
+    <div class="form-group">
+        <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

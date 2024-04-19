@@ -8,7 +8,7 @@ using UgbApi.Models;
 
 namespace UgbApi.Controllers
 {
-    [Route("api/Fornecedores")]
+    [Route("Fornecedores/")]
     [ApiController]
     public class FornecedoresController : ControllerBase
     {
@@ -18,15 +18,11 @@ namespace UgbApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Fornecedores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FornecedorModel>>> GetAll()
         {
             return await _context.Fornecedores.ToListAsync();
         }
-
-        // GET: api/Fornecedores/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FornecedorModel>> GetById(int id)
         {
@@ -39,8 +35,6 @@ namespace UgbApi.Controllers
 
             return fornecedor;
         }
-
-        // POST: api/Fornecedores
         [HttpPost]
         public async Task<ActionResult<FornecedorModel>> Add(FornecedorModel fornecedor)
         {
@@ -49,8 +43,6 @@ namespace UgbApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = fornecedor.FornecedorId }, fornecedor);
         }
-
-        // PUT: api/Fornecedores/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, FornecedorModel fornecedor)
         {
@@ -79,8 +71,6 @@ namespace UgbApi.Controllers
 
             return NoContent();
         }
-
-        // DELETE: api/Fornecedores/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -1,0 +1,39 @@
+﻿@model UgbFront.Models.ServicoInternoModel
+
+<h1>Novo Serviço Interno</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="ServicoId" class="control-label">Serviços</label>
+        <select asp-for="ServicoId" class="form-control">
+            @foreach (var servico in ViewBag.Servicos)
+            {
+                <option value="@servico.ServicoId">@servico.Nome</option>
+            }
+        </select>
+        <span asp-validation-for="ServicoId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UsuarioId" class="control-label">Usuário</label>
+        <select asp-for="UsuarioId" class="form-control">
+            @foreach (var usuario in ViewBag.Usuarios)
+            {
+                <option value="@usuario.UsuarioId">@usuario.Nome</option>
+            }
+        </select>
+        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataCadastro"></label>
+        <input asp-for="DataCadastro" class="form-control" />
+        <span asp-validation-for="DataCadastro" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descricao"></label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-danger">Voltar</a>
+</form>

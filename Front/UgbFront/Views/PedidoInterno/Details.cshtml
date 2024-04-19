@@ -1,0 +1,64 @@
+﻿@model UgbFront.Models.PedidoInternoModel
+
+<h1>Detalhes do Pedido Interno</h1>
+
+<div>
+    <h4>ID do Pedido Interno: @Model.PedidoInternoId</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Produto:</dt>
+        <dd>
+            @{
+                var produto = ViewBag.Produto;
+
+                if (produto != null)
+                {
+                    <text>Nome:@produto.Nome</text>
+
+                    <br>
+                    <text>Endereco: @produto.EAN</text>
+
+                    <br>
+                    <text>Email: @produto.PrecoUnitario</text>
+
+                    <br>
+                    <text>CNPJ: @produto.CotaMinima</text>
+
+                    <br>
+
+                }
+                else
+                {
+                    <text>Desconhecido</text>
+                }
+            }
+        </dd>
+        <dt class="col-sm-2">Quantidade:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Quantidade)</dd>
+        <dt class="col-sm-2">Usuário Solicitante:</dt>
+        <dd>
+            @{
+                var usuario = ViewBag.Usuario;
+
+                if (usuario != null)
+                {
+                    <text>Nome:@usuario.Matricula</text>
+
+                    <br>
+                    <text>Endereco: @usuario.Nome</text>
+
+                    <br>
+                    <text>Email: @usuario.Departamento</text>
+                }
+                else
+                {
+                    <text>Desconhecido</text>
+                }
+            }
+        </dd>
+        <dt class="col-sm-2">Data de Cadastro:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DataCadastro)</dd>
+        <dt class="col-sm-2">Observação:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Observacao)</dd>
+    </dl>
+</div>

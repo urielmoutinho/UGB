@@ -1,0 +1,26 @@
+﻿@model UgbFront.Models.UsuarioModel
+
+<h1>Editar Usuário</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="UsuarioId" />
+    <div class="form-group">
+        <label asp-for="Matricula">Matrícula:</label>
+        <input asp-for="Matricula" class="form-control" />
+        <span asp-validation-for="Matricula" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nome">Nome:</label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Departamento">Departamento:</label>
+        <input asp-for="Departamento" class="form-control" />
+        <span asp-validation-for="Departamento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" /> 
+        <a asp-action="Index" class="btn btn-danger">Voltar à Lista</a>
+    </div>
+</form>

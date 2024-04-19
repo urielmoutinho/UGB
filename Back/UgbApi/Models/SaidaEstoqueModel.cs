@@ -7,19 +7,11 @@ namespace UgbApi.Models
     [Table("SaidasEstoque")]
     public class SaidaEstoqueModel
     {
-        [Key]
+        [Key] // Define a propriedade como chave primária
         public int SaidaEstoqueId { get; set; }
-
-        public int ProdutoId { get; set; }
-        public ProdutoModel Produto { get; set; }
-
+        public int ProdutoId { get; set; } // Referência ao produto associado
         public int Quantidade { get; set; }
-
-        public int UsuarioId { get; set; }
-        public UsuarioModel Usuario { get; set; }
-
-        public string Departamento { get; set; }
-
+        public int UsuarioId { get; set; } // Referência ao usuario associado
         public DateTime DataCadastro { get; set; }
     }
 }

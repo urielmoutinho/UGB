@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UgbFront.Models.ServicoModel>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Serviço</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Prazo de Entrega</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var servico in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => servico.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => servico.Descricao)</td>
+                <td>@Html.DisplayFor(modelItem => servico.PrazoEntrega)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@servico.ServicoId" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@servico.ServicoId" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@servico.ServicoId" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

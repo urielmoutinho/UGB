@@ -1,0 +1,15 @@
+﻿@model UgbFront.Models.UsuarioModel
+
+<h1>Detalhes do Usuário</h1>
+
+<div>
+    <h4>Matrícula: @Html.DisplayFor(model => model.Matricula)</h4>
+    <h4>Nome: @Html.DisplayFor(model => model.Nome)</h4>
+    <h4>Departamento: @Html.DisplayFor(model => model.Departamento)</h4>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.UsuarioId" class="btn btn-warning">Editar</a>
+    <a asp-action="Delete" asp-route-id="@Model.UsuarioId" class="btn btn-danger">Excluir</a>
+    <a asp-action="Index" class="btn btn-primary">Voltar à Lista</a>
+</p>

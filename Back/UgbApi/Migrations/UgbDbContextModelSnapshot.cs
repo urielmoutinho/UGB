@@ -52,10 +52,6 @@ namespace UgbApi.Migrations
 
                     b.HasKey("EntradaEstoqueId");
 
-                    b.HasIndex("FornecedorId");
-
-                    b.HasIndex("ProdutoId");
-
                     b.ToTable("EntradasEstoque");
                 });
 
@@ -104,22 +100,16 @@ namespace UgbApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PedidoInternoId"), 1L, 1);
 
-                    b.Property<string>("CodigoEAN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataEntrega")
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descricao")
+                    b.Property<string>("Fabricante")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FornecedorId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PrecoTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int");
@@ -127,14 +117,10 @@ namespace UgbApi.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ValorUnitario")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
 
                     b.HasKey("PedidoInternoId");
-
-                    b.HasIndex("FornecedorId");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("PedidosInternos");
                 });
@@ -161,9 +147,6 @@ namespace UgbApi.Migrations
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("QuantidadeEstoque")
-                        .HasColumnType("int");
-
                     b.HasKey("ProdutoId");
 
                     b.ToTable("Produtos");
@@ -180,10 +163,6 @@ namespace UgbApi.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Departamento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
@@ -195,11 +174,33 @@ namespace UgbApi.Migrations
 
                     b.HasKey("SaidaEstoqueId");
 
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("UsuarioId");
-
                     b.ToTable("SaidasEstoque");
+                });
+
+            modelBuilder.Entity("UgbApi.Models.ServicoInternoModel", b =>
+                {
+                    b.Property<int>("ServicoInternoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicoInternoId"), 1L, 1);
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ServicoInternoId");
+
+                    b.ToTable("ServicoInternos");
                 });
 
             modelBuilder.Entity("UgbApi.Models.ServicoModel", b =>
@@ -221,12 +222,10 @@ namespace UgbApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrazoEntrega")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("PrazoEntrega")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ServicoId");
-
-                    b.HasIndex("FornecedorId");
 
                     b.ToTable("Servicos");
                 });
@@ -253,79 +252,6 @@ namespace UgbApi.Migrations
                     b.HasKey("UsuarioId");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("UgbApi.Models.EntradaEstoqueModel", b =>
-                {
-                    b.HasOne("UgbApi.Models.FornecedorModel", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UgbApi.Models.ProdutoModel", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fornecedor");
-
-                    b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("UgbApi.Models.PedidoInternoModel", b =>
-                {
-                    b.HasOne("UgbApi.Models.FornecedorModel", "Fornecedor")
-                        .WithMany("PedidosInternos")
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UgbApi.Models.ProdutoModel", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fornecedor");
-
-                    b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("UgbApi.Models.SaidaEstoqueModel", b =>
-                {
-                    b.HasOne("UgbApi.Models.ProdutoModel", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UgbApi.Models.UsuarioModel", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("UgbApi.Models.ServicoModel", b =>
-                {
-                    b.HasOne("UgbApi.Models.FornecedorModel", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fornecedor");
-                });
-
-            modelBuilder.Entity("UgbApi.Models.FornecedorModel", b =>
-                {
-                    b.Navigation("PedidosInternos");
                 });
 #pragma warning restore 612, 618
         }

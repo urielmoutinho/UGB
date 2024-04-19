@@ -1,0 +1,13 @@
+﻿@model UgbFront.Models.ProdutoModel
+
+<h1>Detalhes do Produto</h1>
+
+<div>
+    <h4>Nome: @Html.DisplayFor(model => model.Nome)</h4>
+    <h4>Código EAN: @Html.DisplayFor(model => model.EAN)</h4>
+    <h4>Preço Unitário: @Html.DisplayFor(model => model.PrecoUnitario)</h4>
+    <h4>Cota Mínima em Estoque: @Html.DisplayFor(model => model.CotaMinima)</h4>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-primary">Voltar</a>
+</div>

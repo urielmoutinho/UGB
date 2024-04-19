@@ -7,7 +7,7 @@ using UgbApi.Models;
 
 namespace UgbApi.Controllers
 {
-    [Route("api/EntradaSaidaEstoque")]
+    [Route("EntradaSaidaEstoque")]
     [ApiController]
     public class EntradaSaidaEstoqueController : ControllerBase
     {
@@ -17,38 +17,50 @@ namespace UgbApi.Controllers
         {
             _context = context;
         }
-
-        // POST: api/EntradaSaidaEstoque/Entrada
         [HttpPost("Entrada")]
         public async Task<ActionResult> RegistrarEntradaEstoque(EntradaEstoqueModel entradaEstoque)
         {
-            entradaEstoque.DataCadastro = DateTime.Now; // Definindo a data de cadastro como a data atual
+            entradaEstoque.DataCadastro = DateTime.Now; 
             _context.EntradasEstoque.Add(entradaEstoque);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
-
-        // POST: api/EntradaSaidaEstoque/Saida
         [HttpPost("Saida")]
         public async Task<ActionResult> RegistrarSaidaEstoque(SaidaEstoqueModel saidaEstoque)
         {
-            // Verifica se há estoque suficiente para realizar a saída
-            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == saidaEstoque.ProdutoId);
-            if (produto == null || produto.QuantidadeEstoque < saidaEstoque.Quantidade)
+            try
             {
-                return BadRequest("Estoque insuficiente para realizar a saída.");
+                // Verifica se há estoque suficiente para realizar a saída
+                var quantidadeEmEstoque = await CalcularQuantidadeEmEstoque(saidaEstoque.ProdutoId);
+                if (quantidadeEmEstoque < saidaEstoque.Quantidade)
+                {
+                    return BadRequest("Estoque insuficiente para realizar a saída.");
+                }
+
+                // Se houver estoque suficiente, prosseguir com o registro da saída
+                saidaEstoque.DataCadastro = DateTime.Now; 
+                _context.SaidasEstoque.Add(saidaEstoque);
+
+                await _context.SaveChangesAsync();
+
+                return Ok(); 
             }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao registrar saída de estoque: {ex.Message}");
+            }
+        }
+        // Método para calcular a quantidade em estoque de um produto
+        private async Task<int> CalcularQuantidadeEmEstoque(int produtoId)
+        {
+            var entradas = await _context.EntradasEstoque.Where(e => e.ProdutoId == produtoId).ToListAsync();
+            var saidas = await _context.SaidasEstoque.Where(s => s.ProdutoId == produtoId).ToListAsync();
 
-            saidaEstoque.DataCadastro = DateTime.Now; // Definindo a data de cadastro como a data atual
-            _context.SaidasEstoque.Add(saidaEstoque);
+            var totalEntradas = entradas.Sum(e => e.Quantidade);
+            var totalSaidas = saidas.Sum(s => s.Quantidade);
 
-            // Atualiza a quantidade de estoque do produto
-            produto.QuantidadeEstoque -= saidaEstoque.Quantidade;
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return totalEntradas - totalSaidas;
         }
     }
 }

@@ -8,7 +8,7 @@ using UgbApi.Models;
 
 namespace UgbApi.Controllers
 {
-    [Route("api/Usuarios")]
+    [Route("/Usuarios")]
     [ApiController]
     public class UsuariosController : ControllerBase
     {
@@ -18,15 +18,11 @@ namespace UgbApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UsuarioModel>>> GetAll()
         {
             return await _context.Usuarios.ToListAsync();
         }
-
-        // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UsuarioModel>> GetById(int id)
         {
@@ -39,8 +35,6 @@ namespace UgbApi.Controllers
 
             return usuario;
         }
-
-        // POST: api/Usuarios
         [HttpPost]
         public async Task<ActionResult<UsuarioModel>> Add(UsuarioModel usuario)
         {
@@ -49,8 +43,6 @@ namespace UgbApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = usuario.UsuarioId }, usuario);
         }
-
-        // PUT: api/Usuarios/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, UsuarioModel usuario)
         {
@@ -79,8 +71,6 @@ namespace UgbApi.Controllers
 
             return NoContent();
         }
-
-        // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

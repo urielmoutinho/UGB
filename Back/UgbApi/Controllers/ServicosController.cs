@@ -8,7 +8,7 @@ using UgbApi.Models;
 
 namespace UgbApi.Controllers
 {
-    [Route("api/Servicos")]
+    [Route("/Servicos")]
     [ApiController]
     public class ServicosController : ControllerBase
     {
@@ -18,15 +18,11 @@ namespace UgbApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Servicos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServicoModel>>> GetAll()
         {
             return await _context.Servicos.ToListAsync();
         }
-
-        // GET: api/Servicos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ServicoModel>> GetById(int id)
         {
@@ -39,8 +35,6 @@ namespace UgbApi.Controllers
 
             return servico;
         }
-
-        // POST: api/Servicos
         [HttpPost]
         public async Task<ActionResult<ServicoModel>> Add(ServicoModel servico)
         {
@@ -49,8 +43,6 @@ namespace UgbApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = servico.ServicoId }, servico);
         }
-
-        // PUT: api/Servicos/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, ServicoModel servico)
         {
@@ -79,8 +71,6 @@ namespace UgbApi.Controllers
 
             return NoContent();
         }
-
-        // DELETE: api/Servicos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

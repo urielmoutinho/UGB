@@ -1,0 +1,19 @@
+﻿@model UgbFront.Models.ProdutoModel
+
+<h4>Excluir Produto</h4>
+
+<div>
+    <h4>Nome: @Html.DisplayFor(model => model.Nome)</h4>
+    <h4>Código EAN: @Html.DisplayFor(model => model.EAN)</h4>
+    <h4>Preço Unitário: @Html.DisplayFor(model => model.PrecoUnitario)</h4>
+    <h4>Cota Mínima em Estoque: @Html.DisplayFor(model => model.CotaMinima)</h4>
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.ProdutoId">
+    <input type="hidden" asp-for="ProdutoId" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Voltar à Lista</a>
+    </div>
+</form>
+

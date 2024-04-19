@@ -1,0 +1,32 @@
+﻿@model IEnumerable<UgbFront.Models.ProdutoModel>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Produto</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Código EAN</th>
+            <th>Preço Unitário</th>
+            <th>Cota Mínima em Estoque</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => produto.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => produto.EAN)</td>
+                <td>@Html.DisplayFor(modelItem => produto.PrecoUnitario)</td>
+                <td>@Html.DisplayFor(modelItem => produto.CotaMinima)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@produto.ProdutoId" class="btn btn-info">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@produto.ProdutoId" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@produto.ProdutoId" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model UgbFront.Models.UsuarioModel
+
+<h1>Excluir Usuário</h1>
+
+<div>
+    <h4>Detalhes do Usuário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Departamento)
+        </dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="UsuarioId" />
+    <div class="form-group">
+        <input type="submit" value="Excluir" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-primary">Voltar à Lista</a>
+    </div>
+</form>

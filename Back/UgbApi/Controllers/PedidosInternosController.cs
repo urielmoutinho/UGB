@@ -9,7 +9,7 @@ using UgbApi.Models;
 
 namespace UgbApi.Controllers
 {
-    [Route("api/PedidosInternos")]
+    [Route("/PedidosInternos")]
     [ApiController]
     public class PedidosInternosController : ControllerBase
     {
@@ -19,17 +19,13 @@ namespace UgbApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/PedidosInternos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PedidoInternoModel>>> GetPedidosInternos()
+        public async Task<ActionResult<IEnumerable<PedidoInternoModel>>> Get()
         {
             return await _context.PedidosInternos.ToListAsync();
         }
-
-        // GET: api/PedidosInternos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PedidoInternoModel>> GetPedidoInterno(int id)
+        public async Task<ActionResult<PedidoInternoModel>> Get(int id)
         {
             var pedidoInterno = await _context.PedidosInternos.FindAsync(id);
 
@@ -40,16 +36,62 @@ namespace UgbApi.Controllers
 
             return pedidoInterno;
         }
-
-        // POST: api/PedidosInternos
         [HttpPost]
-        public async Task<ActionResult<PedidoInternoModel>> PostPedidoInterno(PedidoInternoModel pedidoInterno)
+        public async Task<ActionResult<PedidoInternoModel>> Post(int usuarioId, int produtoId, PedidoInternoModel pedidoInterno)
         {
-            pedidoInterno.DataEntrega = DateTime.Now; // Definindo a data de cadastro como a data atual
+            pedidoInterno.DataCadastro = DateTime.Now;
+
             _context.PedidosInternos.Add(pedidoInterno);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetPedidoInterno), new { id = pedidoInterno.PedidoInternoId }, pedidoInterno);
+            return CreatedAtAction(nameof(Get), new { id = pedidoInterno.PedidoInternoId }, pedidoInterno);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, int usuarioId, int produtoId, PedidoInternoModel pedidoInterno)
+        {
+            if (id != pedidoInterno.PedidoInternoId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(pedidoInterno).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PedidoInternoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var pedidoInterno = await _context.PedidosInternos.FindAsync(id);
+            if (pedidoInterno == null)
+            {
+                return NotFound();
+            }
+
+            _context.PedidosInternos.Remove(pedidoInterno);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool PedidoInternoExists(int id)
+        {
+            return _context.PedidosInternos.Any(e => e.PedidoInternoId == id);
         }
     }
 }
